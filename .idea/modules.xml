@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/SeamstressPatternStudio.iml" filepath="$PROJECT_DIR$/SeamstressPatternStudio.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Libraries/exp4j/exp4j.iml" filepath="$PROJECT_DIR$/../Libraries/exp4j/exp4j.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Libraries/javaluator/javaluator.iml" filepath="$PROJECT_DIR$/../Libraries/javaluator/javaluator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Libraries/la4j/la4j.iml" filepath="$PROJECT_DIR$/../Libraries/la4j/la4j.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Libraries/lib-controlfx/lib-controlfx.iml" filepath="$PROJECT_DIR$/../Libraries/lib-controlfx/lib-controlfx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../LMenten-Libraries/lib-lmenten/lib-lmenten.iml" filepath="$PROJECT_DIR$/../LMenten-Libraries/lib-lmenten/lib-lmenten.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../LMenten-Libraries/lib-lmenten-fx/lib-lmenten-fx.iml" filepath="$PROJECT_DIR$/../LMenten-Libraries/lib-lmenten-fx/lib-lmenten-fx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugin-test/plugin-test.iml" filepath="$PROJECT_DIR$/plugin-test/plugin-test.iml" />
+    </modules>
+  </component>
+</project>

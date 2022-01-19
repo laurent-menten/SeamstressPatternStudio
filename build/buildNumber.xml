@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="init" name="Build info for SeamstressPatternStudio">
+
+	<buildnumber/>
+
+	<property name="dir.src" value="../src"/>
+	<property name="main.file" value="/be/lmenten/sps/SeamstressPatternStudio.java"/>
+
+	<property file="appinfo.properties" />
+
+	<property name="app.version" value="${app.major}.${app.minor}.${app.security}-${app.pre}-${build.number}-${app.opt}" />
+
+	<tstamp>
+	  <format property="build.datetime" pattern="yyyy-MM-dd'T'HH:mm:ss" />
+	</tstamp>
+
+	<!-- ================================================================== -->
+	<!-- ================================================================== -->
+	<!-- ================================================================== -->
+
+	<target name="init">
+
+		<replaceregexp
+				file="${dir.src}${main.file}"
+				match="public\s+static\s+final\s+String\s+APP_TITLE\s+=\s+&quot;.*&quot;;"
+				replace="public static final String APP_TITLE = &quot;${app.title}&quot;;"
+				byline="true"
+		/>
+
+		<replaceregexp
+				file="${dir.src}${main.file}"
+				match="public\s+static\s+final\s+Version\s+APP_VERSION\s+=\s+Version.parse[(]\s+&quot;.*&quot;\s+[)];"
+				replace="public static final Version APP_VERSION = Version.parse( &quot;${app.version}&quot; );"
+				byline="true"
+		/>
+
+		<replaceregexp
+			file="${dir.src}${main.file}"
+			match="public\s+static\s+final\s+long\s+APP_BUILD_NUMBER\s+=\s+.*L;"
+			replace="public static final long APP_BUILD_NUMBER = ${build.number}L;"
+			byline="true"
+		/>
+
+		<replaceregexp
+				file="${dir.src}${main.file}"
+				match="public\s+static\s+final\s+LocalDateTime\s+APP_BUILD_DATETIME\s+=\s+LocalDateTime.parse[(]\s+&quot;.*&quot;\s+[)];"
+				replace="public static final LocalDateTime APP_BUILD_DATETIME = LocalDateTime.parse( &quot;${build.datetime}&quot; );"
+				byline="true"
+		/>
+
+		<propertyfile file="appinfo.properties">
+			<entry key="zip.suffix" value="${app.version}" />
+		</propertyfile>
+    </target>
+</project>

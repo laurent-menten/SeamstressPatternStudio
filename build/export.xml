@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="export" name="Make release archive for SeamstressPatternStudio">
+
+    <property file="appinfo.properties" />
+
+    <target name="export">
+        <zip destfile="${zip.prefix}-${zip.suffix}.zip">
+            <zipfileset dir="../lib" includes="*.jar" prefix="lib" />
+            <zipfileset dir="../plugins" includes="*.jar" prefix="plugins" />
+            <zipfileset dir=".." includes="SeamstressPatternStudio.jar" />
+            <zipfileset dir=".." includes="LICENSE" />
+            <zipfileset dir=".." includes="README" />
+        </zip>
+    </target>
+</project>

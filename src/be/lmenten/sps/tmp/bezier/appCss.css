@@ -1,0 +1,19 @@
+.button.add{
+	-fx-background-image: url('res/plus-icon.png');
+	-fx-background-size: 32px 32px;
+	-fx-background-position: center;
+	-fx-background-repeat: no-repeat;
+	-fx-background-radius: 100;
+	-fx-pref-height: 30;
+	-fx-pref-width: 30;
+}
+
+.button.minus{
+	-fx-background-image: url('res/minus-icon.png');
+	-fx-background-size: 32px 32px;
+	-fx-background-position: center;
+	-fx-background-repeat: no-repeat;
+	-fx-background-radius: 30;
+	-fx-pref-height: 30;
+	-fx-pref-width: 30;
+}
