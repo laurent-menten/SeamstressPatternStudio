@@ -1,3 +1,3 @@
-Seamstress Pattern Studio
+#Seamstress Pattern Studio
 
 Patterns drawing tool
