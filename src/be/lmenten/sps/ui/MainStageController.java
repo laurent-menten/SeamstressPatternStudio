@@ -131,8 +131,9 @@ public class MainStageController
 		scene.getStylesheets().add( SeamstressPatternStudio.APP_CSS_URL );
 
 		Stage stage = new Stage();
-		stage.setScene( scene );
 		stage.setTitle( "Settings" );
+		stage.getIcons().add( application.getAppIcon() );
+		stage.setScene( scene );
 
 		stage.initModality( Modality.WINDOW_MODAL);
 		stage.initOwner( ((Node)ev.getSource()).getScene().getWindow() );
@@ -159,6 +160,7 @@ public class MainStageController
 //			controller.addPluginSettingsPanel( provider.getName(), provider.getPluginInstance().getSettingsPanel() )
 //		);
 	}
+
 	// ========================================================================
 	// = Utilities ============================================================
 	// ========================================================================

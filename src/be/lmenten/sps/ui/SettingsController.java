@@ -24,6 +24,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 public class SettingsController
 	implements Initializable
@@ -31,11 +32,23 @@ public class SettingsController
 	@FXML
 	public AnchorPane pane;
 
+	// ========================================================================
+	// = Constructor ==========================================================
+	// ========================================================================
+
+	public SettingsController()
+	{
+	}
+
 	@Override
 	public void initialize( URL url, ResourceBundle resourceBundle )
 	{
 
 	}
+
+	// ========================================================================
+	// =
+	// ========================================================================
 
 	void addPluginSettingsPanel( String pluginName, Node pluginSettingsPanel )
 	{
@@ -46,4 +59,10 @@ public class SettingsController
 			pane.getChildren().add( pluginSettingsPanel );
 		}
 	}
+	// ========================================================================
+	// = Utilities ============================================================
+	// ========================================================================
+
+	private static final Logger LOG
+		= Logger.getLogger( SettingsController.class.getName() );
 }

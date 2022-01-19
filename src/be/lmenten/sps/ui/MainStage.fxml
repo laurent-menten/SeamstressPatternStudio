@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -12,39 +13,45 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import org.controlsfx.control.PropertySheet?>
-<?import org.controlsfx.control.SegmentedButton?>
 <?import org.controlsfx.control.StatusBar?>
 
-<BorderPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.lmenten.sps.ui.MainStageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.lmenten.sps.ui.MainStageController">
    <bottom>
       <StatusBar fx:id="statusBar" BorderPane.alignment="CENTER" />
    </bottom>
-   <top>
-       <VBox BorderPane.alignment="CENTER">
-           <MenuBar fx:id="menuBar">
-               <Menu mnemonicParsing="false" text="File">
-                   <MenuItem mnemonicParsing="false" text="Close" />
-               </Menu>
-               <Menu mnemonicParsing="false" text="Edit">
-                   <MenuItem mnemonicParsing="false" text="Delete" />
-               </Menu>
-               <Menu mnemonicParsing="false" text="Help">
-                   <MenuItem mnemonicParsing="false" text="About" />
-               </Menu>
-           </MenuBar>
-           <ToolBar fx:id="appToolBar" prefHeight="40.0" prefWidth="200.0">
-               <Button mnemonicParsing="false" onAction="#onSettings" text="Settings" />
-            <SegmentedButton />
-           </ToolBar>
-       </VBox>
-   </top>
+   <right>
+      <ToolBar fx:id="drawingToolBar" orientation="VERTICAL" BorderPane.alignment="CENTER">
+        <items>
+          <Button mnemonicParsing="false" text="Button" />
+        </items>
+      </ToolBar>
+   </right>
    <center>
-      <SplitPane dividerPositions="0.2" BorderPane.alignment="CENTER">
-         <items>
-            <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+      <BorderPane BorderPane.alignment="CENTER">
+         <center>
+            <TabPane fx:id="sheetsPane">
+              <tabs>
+                <Tab text="Untitled Tab 1">
+                  <content>
+                    <AnchorPane>
+                           <children>
+                              <ScrollPane hbarPolicy="ALWAYS" layoutX="235.0" layoutY="286.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Untitled Tab 2">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </center>
+         <left>
+            <SplitPane dividerPositions="0.66" orientation="VERTICAL" BorderPane.alignment="CENTER">
               <items>
                   <Accordion fx:id="toolsAccording">
                     <panes>
@@ -68,32 +75,36 @@
                   <PropertySheet fx:id="currentSheetProperties" />
               </items>
             </SplitPane>
-            <SplitPane dividerPositions="0.75">
+         </left>
+         <right>
+            <SplitPane>
                <items>
-                  <HBox>
-                     <children>
-                        <TabPane fx:id="sheetsPane" HBox.hgrow="ALWAYS">
-                          <tabs>
-                            <Tab text="Untitled Tab 1">
-                              <content>
-                                <AnchorPane />
-                              </content>
-                            </Tab>
-                            <Tab text="Untitled Tab 2">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                              </content>
-                            </Tab>
-                          </tabs>
-                        </TabPane>
-                     </children>
-                  </HBox>
                   <PropertySheet fx:id="currentObjectProperties" />
                </items>
             </SplitPane>
-         </items>
-      </SplitPane>
+         </right>
+      </BorderPane>
    </center>
+   <top>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+              <MenuBar fx:id="menuBar">
+                  <Menu mnemonicParsing="false" text="File">
+                      <MenuItem mnemonicParsing="false" text="Close" />
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Edit">
+                      <MenuItem mnemonicParsing="false" text="Delete" />
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Help">
+                      <MenuItem mnemonicParsing="false" text="About" />
+                  </Menu>
+              </MenuBar>
+              <ToolBar fx:id="appToolBar" prefHeight="40.0" prefWidth="200.0">
+                  <Button mnemonicParsing="false" onAction="#onSettings" text="Settings" />
+              </ToolBar>
+         </children>
+      </VBox>
+   </top>
    <left>
       <ToolBar fx:id="patternToolBar" orientation="VERTICAL" BorderPane.alignment="CENTER">
         <items>
@@ -101,11 +112,4 @@
         </items>
       </ToolBar>
    </left>
-   <right>
-      <ToolBar fx:id="drawingToolBar" orientation="VERTICAL" BorderPane.alignment="CENTER">
-        <items>
-          <Button mnemonicParsing="false" text="Button" />
-        </items>
-      </ToolBar>
-   </right>
 </BorderPane>

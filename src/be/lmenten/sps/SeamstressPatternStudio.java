@@ -23,9 +23,11 @@ import be.lmenten.utils.app.fx.FxApplication;
 import be.lmenten.utils.logging.fx.LogWindow;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.lang.Runtime.Version;
@@ -53,13 +55,13 @@ public class SeamstressPatternStudio
 	// - Application constants ------------------------------------------------
 	// ------------------------------------------------------------------------
 
+	private final Image appIcon;
+
 	public static final String APP_CSS_URL =
 		SeamstressPatternStudio.class
 			.getResource( "SeamstressPatternStudio.css" )
 			.toExternalForm();
 
-	// ------------------------------------------------------------------------
-	// -
 	// ------------------------------------------------------------------------
 
 	private final ServiceLoader<PluginProvider> serviceLoader;
@@ -72,6 +74,13 @@ public class SeamstressPatternStudio
 
 	public SeamstressPatternStudio()
 	{
+		// --------------------------------------------------------------------
+		// - Graphic resources ------------------------------------------------
+		// --------------------------------------------------------------------
+
+		InputStream is = getClass().getResourceAsStream( "images/icon48.png" );
+		appIcon = new Image( is );
+
 		// --------------------------------------------------------------------
 		// - Load plugins providers -------------------------------------------
 		// --------------------------------------------------------------------
@@ -113,6 +122,12 @@ public class SeamstressPatternStudio
 	public Runtime.Version getAppVersion()
 	{
 		return APP_VERSION;
+	}
+
+	@Override
+	public Image getAppIcon()
+	{
+		return appIcon;
 	}
 
 	@Override
@@ -165,6 +180,7 @@ public class SeamstressPatternStudio
 		if( logWindowStage != null )
 		{
 			logWindowStage.setTitle( logWindowStage.getTitle() + " - " + getAppTitle() );
+			logWindowStage.getIcons().add( getAppIcon() );
 			logWindowStage.getScene().getStylesheets().add( APP_CSS_URL );
 		}
 
@@ -179,6 +195,8 @@ public class SeamstressPatternStudio
 		Scene scene = new Scene( root );
 		scene.getStylesheets().add( APP_CSS_URL );
 
+		stage.setTitle( getAppTitle() );
+		stage.getIcons().add( getAppIcon() );
 		stage.setScene( scene );
 		stage.setMaximized( true );
 		stage.show();
