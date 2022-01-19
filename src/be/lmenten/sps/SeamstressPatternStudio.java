@@ -17,6 +17,8 @@
 
 package be.lmenten.sps;
 
+import be.lmenten.sps.math.ImperialHelper;
+import be.lmenten.sps.math.ImperialPrecision;
 import be.lmenten.sps.plugins.PluginProvider;
 import be.lmenten.sps.ui.MainStageController;
 import be.lmenten.utils.app.fx.FxApplication;
@@ -74,6 +76,14 @@ public class SeamstressPatternStudio
 
 	public SeamstressPatternStudio()
 	{
+		double [] mm = { 450, 425, 157, 123, 77, 32, 25, 17 };
+		for( double m : mm )
+		{
+			System.out.println( m + "mm = " + ImperialHelper.mmToFractionString( m, ImperialPrecision.ONE_64TH ) );
+		}
+
+		System.exit( 0 );
+
 		// --------------------------------------------------------------------
 		// - Graphic resources ------------------------------------------------
 		// --------------------------------------------------------------------

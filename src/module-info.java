@@ -47,10 +47,20 @@ module SeamstressPatternStudio
 
 	opens be.lmenten.sps.ui to javafx.fxml;
 
-	exports be.lmenten.sps.tmp.bezier to javafx.graphics;
-	opens be.lmenten.sps.tmp.bezier to javafx.fxml;
-
 	uses be.lmenten.sps.plugins.PluginProvider;
 	provides PluginProvider with
-		BasePluginProvider;
+			BasePluginProvider;
+
+	// ------------------------------------------------------------------------
+	// - To remove ------------------------------------------------------------
+	// ------------------------------------------------------------------------
+
+	exports be.lmenten.sps.tmp.zoom to javafx.graphics;
+	opens be.lmenten.sps.tmp.zoom to javafx.fxml;
+
+	exports be.lmenten.sps.tmp.paint to javafx.graphics;
+	opens be.lmenten.sps.tmp.paint to javafx.fxml;
+
+	exports be.lmenten.sps.tmp.bezier to javafx.graphics;
+	opens be.lmenten.sps.tmp.bezier to javafx.fxml;
 }

@@ -150,15 +150,19 @@ public class MainStageController
 				.addAll( BeanPropertyUtils.getProperties( application.getSettings() ) );
 		controller.addPluginSettingsPanel( "FxApplication", propertySheet );
 
+//		application.getServiceLoader().forEach( provider ->
+//			controller.addPluginSettingsPanel( provider.getName(), provider.getPluginInstance().getSettingsPanel() )
+//		);
+
 		stage.showAndWait();
 
 		LOG.info( "Settings done" );
 
-		application.getSettings().saveToPreferences();
+		// --------------------------------------------------------------------
+		// - Save changes -----------------------------------------------------
+		// --------------------------------------------------------------------
 
-//		application.getServiceLoader().forEach( provider ->
-//			controller.addPluginSettingsPanel( provider.getName(), provider.getPluginInstance().getSettingsPanel() )
-//		);
+		application.getSettings().saveToPreferences();
 	}
 
 	// ========================================================================
