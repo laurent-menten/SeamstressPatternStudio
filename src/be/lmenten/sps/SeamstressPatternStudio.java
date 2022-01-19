@@ -76,14 +76,6 @@ public class SeamstressPatternStudio
 
 	public SeamstressPatternStudio()
 	{
-		double [] mm = { 450, 425, 157, 123, 77, 32, 25, 17 };
-		for( double m : mm )
-		{
-			System.out.println( m + "mm = " + ImperialHelper.mmToFractionString( m, ImperialPrecision.ONE_64TH ) );
-		}
-
-		System.exit( 0 );
-
 		// --------------------------------------------------------------------
 		// - Graphic resources ------------------------------------------------
 		// --------------------------------------------------------------------

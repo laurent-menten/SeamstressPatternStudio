@@ -55,6 +55,9 @@ module SeamstressPatternStudio
 	// - To remove ------------------------------------------------------------
 	// ------------------------------------------------------------------------
 
+	exports be.lmenten.sps.tmp.calc to javafx.graphics;
+	opens be.lmenten.sps.tmp.calc to javafx.fxml;
+
 	exports be.lmenten.sps.tmp.zoom to javafx.graphics;
 	opens be.lmenten.sps.tmp.zoom to javafx.fxml;
 

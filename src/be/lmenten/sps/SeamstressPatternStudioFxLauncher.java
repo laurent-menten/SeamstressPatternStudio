@@ -32,8 +32,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
-import be.lmenten.sps.tmp.paint.Paint;
-import be.lmenten.sps.tmp.zoom.Zoom;
+import be.lmenten.sps.tmp.calc.Calc;
 import javafx.application.Application;
 
 /**
@@ -71,6 +70,7 @@ public class SeamstressPatternStudioFxLauncher
 			long start = System.currentTimeMillis();
 
 			Application.launch( SeamstressPatternStudio.class, args );
+//			Application.launch( Calc.class, args );
 //			Application.launch( Paint.class, args );
 //			Application.launch( Zoom.class, args );
 
