@@ -21,15 +21,14 @@ import be.lmenten.sps.plugins.PluginProvider;
 import be.lmenten.sps.ui.MainStageController;
 import be.lmenten.utils.app.fx.FxApplication;
 import be.lmenten.utils.logging.fx.LogWindow;
-import be.lmenten.utils.mxparser.Expression;
+import be.lmenten.utils.mxparser.*;
 
-import be.lmenten.utils.mxparser.MethodReference;
-import be.lmenten.utils.mxparser.ObjectReference;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.mariuszgromada.math.mxparser.Argument;
 import org.mariuszgromada.math.mxparser.Constant;
 
 import java.io.InputStream;
@@ -108,32 +107,11 @@ public class SeamstressPatternStudio
 
 	public double getValue()
 	{
-		return value++;
+		return value;
 	}
 
 	public SeamstressPatternStudio()
 	{
-		Expression e = new Expression( "a + o1 + o2" );
-
-		Constant a = new Constant( "a", 1 );
-		e.addConstants( a );
-
-		MethodReference o1 = new MethodReference( "o1", this::getValue );
-		ObjectReference o2 = new ObjectReference<LocalDate>( "o2", LocalDate.now(), d -> (double) d.getDayOfMonth() );
-		e.addMethodReferences( o1, o2 );
-
-		check( e );
-
-		double r = e.calculate();
-		System.out.println( e.getExpressionString() + " = " + (Double.isNaN( r ) ? "ERROR!" : r) );
-
-		o1.refreshValue();
-
-		double s = e.calculate();
-		System.out.println( e.getExpressionString() + " = " + (Double.isNaN( r ) ? "ERROR!" : s) );
-
-		System.exit( -1 );
-
 		// --------------------------------------------------------------------
 		// - Graphic resources ------------------------------------------------
 		// --------------------------------------------------------------------

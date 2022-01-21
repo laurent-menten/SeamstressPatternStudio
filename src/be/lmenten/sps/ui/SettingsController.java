@@ -51,8 +51,6 @@ public class SettingsController
 
 	void addPluginSettingsPanel( String pluginName, Node pluginSettingsPanel )
 	{
-		System.out.println( pluginName + " = " + pluginSettingsPanel );
-
 		if( pluginSettingsPanel != null )
 		{
 			pane.getChildren().add( pluginSettingsPanel );

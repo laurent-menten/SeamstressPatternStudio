@@ -10,5 +10,7 @@
     <orderEntry type="module" module-name="SeamstressPatternStudio" />
     <orderEntry type="library" name="javafx-17.0.1" level="application" />
     <orderEntry type="module" module-name="lib-controlfx" />
+    <orderEntry type="module" module-name="lib-lmenten" />
+    <orderEntry type="library" name="annotations-20.1.0" level="application" />
   </component>
 </module>

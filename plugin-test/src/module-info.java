@@ -21,10 +21,15 @@ import be.lmenten.sps.plugins.test.TestPluginProvider;
 module plugin.test
 {
 	requires SeamstressPatternStudio;
+	requires lib.lmenten;
+
+	requires org.controlsfx.controls;
+	requires org.jetbrains.annotations;
 
 	requires javafx.controls;
 	requires java.logging;
-	requires org.controlsfx.controls;
+	requires java.desktop;
+	requires java.prefs;
 
 	provides PluginProvider with
 		TestPluginProvider;

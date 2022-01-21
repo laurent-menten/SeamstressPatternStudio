@@ -106,7 +106,7 @@ public class MainStageController
 	 */
 	public void addTool( ToolCategory category, Object arg )
 	{
-		System.out.println( category + ": " + arg );
+		LOG.info( "Adding tool: " + category + "/" + arg.toString() );
 	}
 
 	// ========================================================================
@@ -149,7 +149,7 @@ public class MainStageController
 		PropertySheet propertySheet = new PropertySheet();
 		propertySheet.setMode( PropertySheet.Mode.CATEGORY );
 		propertySheet.getItems()
-				.addAll( BeanPropertyUtils.getProperties( application.getSettings() ) );
+			.addAll( BeanPropertyUtils.getProperties( application.getSettings() ) );
 		controller.addPluginSettingsPanel( "FxApplication", propertySheet );
 
 //		application.getServiceLoader().forEach( provider ->

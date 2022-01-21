@@ -18,6 +18,7 @@
 package be.lmenten.sps.plugins;
 
 import be.lmenten.sps.SeamstressPatternStudio;
+import be.lmenten.utils.settings.Settings;
 import javafx.scene.Node;
 
 import java.beans.Transient;
@@ -70,6 +71,8 @@ public interface Plugin
 	 */
 	void stop()
 		throws Exception;
+
+	Settings getPluginSettings();
 
 	/**
 	 *

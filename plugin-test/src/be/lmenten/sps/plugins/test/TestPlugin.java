@@ -19,27 +19,35 @@ package be.lmenten.sps.plugins.test;
 
 import be.lmenten.sps.SeamstressPatternStudio;
 import be.lmenten.sps.plugins.Plugin;
+import be.lmenten.sps.plugins.base.BasePlugin;
 import be.lmenten.sps.tools.ToolCategory;
+import be.lmenten.utils.settings.Settings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import org.controlsfx.control.PropertySheet;
 import org.controlsfx.property.BeanPropertyUtils;
+import org.jetbrains.annotations.PropertyKey;
 
+import java.util.ResourceBundle;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 
 public class TestPlugin
 	implements Plugin
 {
-	private SeamstressPatternStudio app;
+	private final TestPluginSettings settings
+		= new TestPluginSettings();
 
 	private final PropertySheet propertySheet
 		= new PropertySheet();
 
+	// ------------------------------------------------------------------------
+
+	private SeamstressPatternStudio app;
+
 	private final ObservableList<PropertySheet.Item> properties
-			= FXCollections.observableArrayList();
+		= FXCollections.observableArrayList();
 
 	// ========================================================================
 	// = Constructor ==========================================================
@@ -47,6 +55,7 @@ public class TestPlugin
 
 	public TestPlugin()
 	{
+		settings.load();
 	}
 
 	// ========================================================================
@@ -60,8 +69,9 @@ public class TestPlugin
 
 		this.app = app;
 
-		var properties = BeanPropertyUtils.getProperties( this );
-		propertySheet.getItems().addAll( properties );
+		propertySheet.setMode( PropertySheet.Mode.CATEGORY );
+		propertySheet.getItems()
+			.addAll( BeanPropertyUtils.getProperties( settings ) );
 	}
 
 	@Override
@@ -81,16 +91,37 @@ public class TestPlugin
 	// ------------------------------------------------------------------------
 
 	@Override
-	public Node getSettingsPanel()
+	public Settings getPluginSettings()
 	{
-		return null; //propertySheet;
+		return settings;
 	}
 
+	@Override
+	public Node getSettingsPanel()
+	{
+		return propertySheet;
+	}
+
+	// ========================================================================
+	// = Utilities ============================================================
+	// ========================================================================
 	// ========================================================================
 	// = Utilities ============================================================
 	// ========================================================================
 
 	@SuppressWarnings( "unused" )
 	private static final Logger LOG
-			= Logger.getLogger( TestPlugin.class.getName() );
+		= Logger.getLogger( BasePlugin.class.getName() );
+
+	@SuppressWarnings( "unused" )
+	private static final Preferences PREFS
+		= Preferences.userNodeForPackage( BasePlugin.class );
+
+	/*package*/ static final ResourceBundle RES
+		= ResourceBundle.getBundle( BasePlugin.class.getName() );
+
+	private String $( @PropertyKey( resourceBundle="be.lmenten.sps.plugins.test.TestPlugin" ) String key )
+	{
+		return RES.getString( key );
+	}
 }
