@@ -10,10 +10,8 @@
     <orderEntry type="library" name="javafx-17.0.1" level="application" />
     <orderEntry type="module" module-name="lib-lmenten-fx" />
     <orderEntry type="module" module-name="lib-lmenten" />
-    <orderEntry type="module" module-name="exp4j" />
-    <orderEntry type="module" module-name="javaluator" />
-    <orderEntry type="module" module-name="la4j" />
     <orderEntry type="module" module-name="lib-controlfx" />
     <orderEntry type="library" name="annotations-20.1.0" level="application" />
+    <orderEntry type="module" module-name="mXparser" />
   </component>
 </module>

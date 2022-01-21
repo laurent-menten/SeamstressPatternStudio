@@ -25,18 +25,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.ToolBar;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.controlsfx.control.PropertySheet;
 import org.controlsfx.control.StatusBar;
+import org.controlsfx.glyphfont.FontAwesome;
+import org.controlsfx.glyphfont.GlyphFont;
+import org.controlsfx.glyphfont.GlyphFontRegistry;
 import org.controlsfx.property.BeanPropertyUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
@@ -48,31 +49,24 @@ public class MainStageController
 
 	// ------------------------------------------------------------------------
 
-	@SuppressWarnings( "unused" )
 	@FXML private MenuBar menuBar;
 
-	@SuppressWarnings( "unused" )
 	@FXML private ToolBar appToolBar;
+	@FXML private Button 	butCalculator;
+	@FXML private Button 	butSettings;
 
-	@SuppressWarnings( "unused" )
 	@FXML private ToolBar patternToolBar;
 
-	@SuppressWarnings( "unused" )
 	@FXML private ToolBar drawingToolBar;
 
-	@SuppressWarnings( "unused" )
 	@FXML private StatusBar statusBar;
 
-	@SuppressWarnings( "unused" )
 	@FXML private Accordion toolsAccording;
 
-	@SuppressWarnings( "unused" )
 	@FXML private TabPane sheetsPane;
 
-	@SuppressWarnings( "unused" )
 	@FXML private PropertySheet currentSheetProperties;
 
-	@SuppressWarnings( "unused" )
 	@FXML private PropertySheet currentObjectProperties;
 
 	// ========================================================================
@@ -86,6 +80,10 @@ public class MainStageController
 	@Override
 	public void initialize( URL url, ResourceBundle resourceBundle )
 	{
+		GlyphFont fontAwesome = GlyphFontRegistry.font("FontAwesome" );
+
+		butCalculator.setGraphic( fontAwesome.create( FontAwesome.Glyph.CALCULATOR ) );
+		butSettings.setGraphic( fontAwesome.create( FontAwesome.Glyph.COG ) );
 	}
 
 	// ------------------------------------------------------------------------
@@ -115,8 +113,12 @@ public class MainStageController
 	// =
 	// ========================================================================
 
-	@FXML
-	private void onSettings( ActionEvent ev )
+	@FXML private void onCalculator( ActionEvent ev )
+	{
+
+	}
+
+	@FXML private void onSettings( ActionEvent ev )
 		throws IOException
 	{
 		// --------------------------------------------------------------------

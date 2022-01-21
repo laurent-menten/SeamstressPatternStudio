@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="mXparser:jar">
+    <output-path>$PROJECT_DIR$/lib</output-path>
+    <root id="archive" name="mXparser.jar">
+      <element id="module-output" name="mXparser" />
+    </root>
+  </artifact>
+</component>

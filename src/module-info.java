@@ -23,9 +23,7 @@ module SeamstressPatternStudio
 	requires lib.lmenten;
 	requires lib.lmenten.fx;
 
-	requires la4j;
-	requires exp4j;
-	requires javaluator;
+	requires mXparser;
 
 	requires java.desktop;
 	requires java.logging;

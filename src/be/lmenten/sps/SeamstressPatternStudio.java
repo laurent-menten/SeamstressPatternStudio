@@ -17,8 +17,8 @@
 
 package be.lmenten.sps;
 
-import be.lmenten.sps.math.ImperialHelper;
-import be.lmenten.sps.math.ImperialPrecision;
+import be.lmenten.sps.math.mXparser.MethodReference;
+import be.lmenten.sps.math.mXparser.SPSExpression;
 import be.lmenten.sps.plugins.PluginProvider;
 import be.lmenten.sps.ui.MainStageController;
 import be.lmenten.utils.app.fx.FxApplication;
@@ -28,6 +28,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.mariuszgromada.math.mxparser.*;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -74,8 +75,63 @@ public class SeamstressPatternStudio
 	// = Constructor ==========================================================
 	// ========================================================================
 
+	private void check( SPSExpression e )
+	{
+		if( !e.checkSyntax() )
+		{
+			System.out.println( "Syntax error in '" + e.getExpressionString() + "'" );
+
+			String [] mm = e.getMissingUserDefinedArguments();
+			for( String m : mm )
+			{
+				System.out.println( "   missing constant: " + m );
+			}
+
+			mm = e.getMissingUserDefinedFunctions();
+			for( String m : mm )
+			{
+				System.out.println( "   missing function: " + m );
+			}
+
+			mm = e.getMissingUserDefinedUnits();
+			for( String m : mm )
+			{
+				System.out.println( "   missing unit: " + m );
+			}
+		}
+	}
+
+	private double value = 1.0;
+
+	public double getValue()
+	{
+		return value++;
+	}
+
 	public SeamstressPatternStudio()
 	{
+		SPSExpression e = new SPSExpression( "a + b + c + myObject_myData + myObject_myData" );
+
+		Constant a = new Constant( "a", 1 );
+		Constant b = new Constant( "b", 2 );
+		Constant c = new Constant( "c", 3 );
+		e.addConstants( a, b, c );
+
+		MethodReference myObject_myData = new MethodReference( "myObject_myData", this::getValue );
+		e.addMethodReferences( myObject_myData );
+
+		check( e );
+
+		double r = e.calculate();
+		System.out.println( e.getExpressionString() + " = " + (Double.isNaN( r ) ? "ERROR!" : r ) );
+
+		myObject_myData.refreshValue();
+
+		double s = e.calculate();
+		System.out.println( e.getExpressionString() + " = " + (Double.isNaN( r ) ? "ERROR!" : s ) );
+
+		System.exit( -1 );
+
 		// --------------------------------------------------------------------
 		// - Graphic resources ------------------------------------------------
 		// --------------------------------------------------------------------

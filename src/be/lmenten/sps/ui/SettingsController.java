@@ -43,7 +43,6 @@ public class SettingsController
 	@Override
 	public void initialize( URL url, ResourceBundle resourceBundle )
 	{
-
 	}
 
 	// ========================================================================

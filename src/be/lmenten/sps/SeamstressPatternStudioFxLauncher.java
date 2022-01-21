@@ -207,6 +207,7 @@ public class SeamstressPatternStudioFxLauncher
 			+	"," + "lib.lmenten.fx"
 			+	"," + "org.jetbrains.annotations"
 
+			+	"," + "mXparser"
 			+	"," + "org.controlsfx.controls"
 
 			+	"," + "javafx.base"
@@ -214,9 +215,6 @@ public class SeamstressPatternStudioFxLauncher
 			+	"," + "javafx.controls"
 			+	"," + "javafx.web"
 			+	"," + "javafx.fxml"
-
-			+	"," + "exp4j"
-			+	"," + "javaluator"
 			;
 
 		javaArgs.add( "--add-modules" );
