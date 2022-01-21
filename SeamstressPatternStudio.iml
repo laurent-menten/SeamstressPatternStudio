@@ -13,5 +13,6 @@
     <orderEntry type="module" module-name="lib-controlfx" />
     <orderEntry type="library" name="annotations-20.1.0" level="application" />
     <orderEntry type="module" module-name="mXparser" />
+    <orderEntry type="module" module-name="lib-lmenten-mxparser" />
   </component>
 </module>

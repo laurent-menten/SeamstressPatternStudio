@@ -17,21 +17,24 @@
 
 package be.lmenten.sps;
 
-import be.lmenten.sps.math.mXparser.MethodReference;
-import be.lmenten.sps.math.mXparser.SPSExpression;
 import be.lmenten.sps.plugins.PluginProvider;
 import be.lmenten.sps.ui.MainStageController;
 import be.lmenten.utils.app.fx.FxApplication;
 import be.lmenten.utils.logging.fx.LogWindow;
+import be.lmenten.utils.mxparser.Expression;
+
+import be.lmenten.utils.mxparser.MethodReference;
+import be.lmenten.utils.mxparser.ObjectReference;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.mariuszgromada.math.mxparser.*;
+import org.mariuszgromada.math.mxparser.Constant;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.lang.Runtime.Version;
 import java.util.ResourceBundle;
@@ -75,7 +78,7 @@ public class SeamstressPatternStudio
 	// = Constructor ==========================================================
 	// ========================================================================
 
-	private void check( SPSExpression e )
+	private void check( Expression e )
 	{
 		if( !e.checkSyntax() )
 		{
@@ -110,25 +113,24 @@ public class SeamstressPatternStudio
 
 	public SeamstressPatternStudio()
 	{
-		SPSExpression e = new SPSExpression( "a + b + c + myObject_myData + myObject_myData" );
+		Expression e = new Expression( "a + o1 + o2" );
 
 		Constant a = new Constant( "a", 1 );
-		Constant b = new Constant( "b", 2 );
-		Constant c = new Constant( "c", 3 );
-		e.addConstants( a, b, c );
+		e.addConstants( a );
 
-		MethodReference myObject_myData = new MethodReference( "myObject_myData", this::getValue );
-		e.addMethodReferences( myObject_myData );
+		MethodReference o1 = new MethodReference( "o1", this::getValue );
+		ObjectReference o2 = new ObjectReference<LocalDate>( "o2", LocalDate.now(), d -> (double) d.getDayOfMonth() );
+		e.addMethodReferences( o1, o2 );
 
 		check( e );
 
 		double r = e.calculate();
-		System.out.println( e.getExpressionString() + " = " + (Double.isNaN( r ) ? "ERROR!" : r ) );
+		System.out.println( e.getExpressionString() + " = " + (Double.isNaN( r ) ? "ERROR!" : r) );
 
-		myObject_myData.refreshValue();
+		o1.refreshValue();
 
 		double s = e.calculate();
-		System.out.println( e.getExpressionString() + " = " + (Double.isNaN( r ) ? "ERROR!" : s ) );
+		System.out.println( e.getExpressionString() + " = " + (Double.isNaN( r ) ? "ERROR!" : s) );
 
 		System.exit( -1 );
 

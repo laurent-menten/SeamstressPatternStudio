@@ -36,6 +36,7 @@ module SeamstressPatternStudio
 
 	requires org.controlsfx.controls;
 	requires org.jetbrains.annotations;
+	requires lib.lmenten.mxparser;
 
 	exports be.lmenten.sps;
 	exports be.lmenten.sps.plugins;
