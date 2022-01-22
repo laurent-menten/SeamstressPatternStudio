@@ -2,7 +2,7 @@
   <artifact type="jar" build-on-make="true" name="plugin-test:jar">
     <output-path>$PROJECT_DIR$/plugins</output-path>
     <root id="archive" name="plugin-test.jar">
-      <element id="module-output" name="plugin-test" />
+      <element id="module-output" name="src-java-plugin-test" />
     </root>
   </artifact>
 </component>
