@@ -27,6 +27,10 @@ import java.io.Serializable;
 public interface Plugin
 	extends Serializable
 {
+	// ------------------------------------------------------------------------
+	// - Life cycle -----------------------------------------------------------
+	// ------------------------------------------------------------------------
+
 	/**
 	 * <p>
 	 * The plugin initialization method.
@@ -72,9 +76,12 @@ public interface Plugin
 	void stop()
 		throws Exception;
 
-	Settings getPluginSettings();
+	// ------------------------------------------------------------------------
+	// -
+	// ------------------------------------------------------------------------
 
 	/**
+	 * Get a javafx Node for settings edition.
 	 *
 	 * @return the settings panel root node
 	 */

@@ -18,13 +18,10 @@
 package be.lmenten.sps.plugins.base;
 
 import be.lmenten.sps.SeamstressPatternStudio;
-import be.lmenten.sps.plugins.Plugin;
+import be.lmenten.sps.plugins.AbstractPlugin;
 import be.lmenten.sps.plugins.PluginType;
 import be.lmenten.sps.tools.ToolCategory;
-import be.lmenten.utils.logging.LogLevel;
-import be.lmenten.utils.settings.Settings;
 import javafx.scene.Node;
-import javafx.scene.paint.Color;
 import org.controlsfx.control.PropertySheet;
 import org.controlsfx.property.BeanPropertyUtils;
 import org.jetbrains.annotations.PropertyKey;
@@ -32,23 +29,29 @@ import org.jetbrains.annotations.PropertyKey;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
+import java.lang.Runtime.Version;
 
 public class BasePlugin
-	implements Plugin
+	extends AbstractPlugin
 {
+	// ------------------------------------------------------------------------
+	// - PluginProvider support -----------------------------------------------
+	// ------------------------------------------------------------------------
+
+	/*package*/ static final String PLUGIN_IDENTIFIER = "sps-base-test";
+	/*package*/ static final String PLUGIN_NAME = "Base plugin (test)";
+	/*package*/ static final Version PLUGIN_VERSION = Runtime.Version.parse(  "1.0.1" );
+	/*package*/ static final PluginType PLUGIN_TYPE = PluginType.DUMMY;
+
+	/*package*/ static final String PLUGIN_RESOURCE_FQN = "be.lmenten.sps.plugins.base.BasePlugin";
+
+	// ------------------------------------------------------------------------
+
 	private final BasePluginSettings settings
 		= new BasePluginSettings();
 
 	private final PropertySheet propertySheet
 		= new PropertySheet();
-
-	// ------------------------------------------------------------------------
-
-	private SeamstressPatternStudio app;
-
-	// ------------------------------------------------------------------------
-	// - Properties -----------------------------------------------------------
-	// ------------------------------------------------------------------------
 
 	// ========================================================================
 	// = Constructor ==========================================================
@@ -57,6 +60,10 @@ public class BasePlugin
 	public BasePlugin()
 	{
 		settings.load();
+
+		propertySheet.setMode( PropertySheet.Mode.CATEGORY );
+		propertySheet.getItems()
+			.addAll( BeanPropertyUtils.getProperties( settings ) );
 	}
 
 	// ========================================================================
@@ -65,20 +72,18 @@ public class BasePlugin
 
 	@Override
 	public void init( SeamstressPatternStudio app )
+		throws Exception
 	{
-		LOG.info( BasePluginProvider.PLUGIN_IDENTIFIER + ": init()" );
+		LOG.info( PLUGIN_IDENTIFIER + ": init()" );
 
-		this.app = app;
-
-		propertySheet.setMode( PropertySheet.Mode.CATEGORY );
-		propertySheet.getItems()
-			.addAll( BeanPropertyUtils.getProperties( settings ) );
+		super.init( app );
 	}
 
 	@Override
 	public void start()
+		throws Exception
 	{
-		LOG.info( BasePluginProvider.PLUGIN_IDENTIFIER + ": start()" );
+		LOG.info( PLUGIN_IDENTIFIER + ": start()" );
 
 		app.getMainStageController().addTool( ToolCategory.DOT, "dot" );
 		app.getMainStageController().addTool( ToolCategory.LINE, "line" );
@@ -86,17 +91,12 @@ public class BasePlugin
 
 	@Override
 	public void stop()
+		throws Exception
 	{
-		LOG.info( BasePluginProvider.PLUGIN_IDENTIFIER + ": stop()" );
+		LOG.info( PLUGIN_IDENTIFIER + ": stop()" );
 	}
 
 	// ------------------------------------------------------------------------
-
-	@Override
-	public Settings getPluginSettings()
-	{
-		return settings;
-	}
 
 	@Override
 	public Node getSettingsPanel()
@@ -119,7 +119,7 @@ public class BasePlugin
 	/*package*/ static final ResourceBundle RES
 		= ResourceBundle.getBundle( BasePlugin.class.getName() );
 
-	private String $( @PropertyKey( resourceBundle="be.lmenten.sps.plugins.base.BasePlugin" ) String key )
+	private String $( @PropertyKey( resourceBundle=PLUGIN_RESOURCE_FQN ) String key )
 	{
 		return RES.getString( key );
 	}

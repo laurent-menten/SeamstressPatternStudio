@@ -15,62 +15,22 @@
  * with this program. If not, see <https://www.gnu.org/licenses/>.           *
  * ************************************************************************* */
 
-package be.lmenten.sps.plugins.test;
+package be.lmenten.sps.plugins;
 
-import be.lmenten.sps.plugins.AbstractPluginProvider;
-import be.lmenten.sps.plugins.Plugin;
-import be.lmenten.sps.plugins.PluginProvider;
-import be.lmenten.sps.plugins.PluginType;
-import javafx.scene.control.Button;
-import javafx.scene.control.Control;
+import be.lmenten.sps.SeamstressPatternStudio;
 
-public class TestPluginProvider
-	extends AbstractPluginProvider
+/**
+ *
+ */
+public abstract class AbstractPlugin
+	implements Plugin
 {
-	/*package*/ static final String PLUGIN_IDENTIFIER = "plugin-test";
-	/*package*/ static final String PLUGIN_NAME = "Test plugin";
-	/*package*/ static final Runtime.Version PLUGIN_VERSION = Runtime.Version.parse(  "1.0.1" );
-
-	private TestPlugin instance;
+	protected SeamstressPatternStudio app;
 
 	@Override
-	public String getPluginIdentifier()
+	public void init( SeamstressPatternStudio app )
+		throws Exception
 	{
-		return PLUGIN_IDENTIFIER;
-	}
-
-	@Override
-	public String getPluginName()
-	{
-		return PLUGIN_NAME;
-	}
-
-	@Override
-	public String getPluginDescription()
-	{
-		return null;
-	}
-
-	@Override
-	public Runtime.Version getPluginVersion()
-	{
-		return PLUGIN_VERSION;
-	}
-
-	@Override
-	public PluginType getPluginType()
-	{
-		return PluginType.DUMMY;
-	}
-
-	@Override
-	public Plugin getPluginInstance()
-	{
-		if( instance == null )
-		{
-			instance = new TestPlugin();
-		}
-
-		return instance;
+		this.app = app;
 	}
 }

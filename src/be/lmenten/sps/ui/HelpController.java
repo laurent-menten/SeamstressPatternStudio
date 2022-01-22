@@ -17,67 +17,81 @@
 
 package be.lmenten.sps.ui;
 
+import be.lmenten.sps.SeamstressPatternStudio;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
-public class SettingsController
-	implements Initializable
+/**
+ *
+ */
+// TODO implement webview resize when window is resized.
+public class HelpController
+	implements Initializable, ChangeListener
 {
-	@FXML private ListView<String> listView;
-	@FXML private AnchorPane contentPane;
-
-	// ------------------------------------------------------------------------
-
-	private Map<String,Node> panelsList
-		= new HashMap<>();
+	@FXML private StackPane stackPane;
+	@FXML private WebView webView;
 
 	// ========================================================================
 	// = Constructor ==========================================================
 	// ========================================================================
 
-	public SettingsController()
+	public HelpController()
 	{
 	}
 
 	@Override
 	public void initialize( URL url, ResourceBundle resourceBundle )
 	{
-	}
+		stackPane.heightProperty().addListener( this );
+		stackPane.widthProperty().addListener( this );
 
-	// ========================================================================
-	// =
-	// ========================================================================
+		WebEngine webEngine = webView.getEngine();
+		webEngine.getLoadWorker().stateProperty().addListener( this );
 
-	void addPluginSettingsPanel( String pluginName, Node pluginSettingsPanel )
-	{
-		if( pluginSettingsPanel != null )
+		URL helpUrl = SeamstressPatternStudio.class.getResource( "docs/index.html" );
+		if( helpUrl != null )
 		{
-			listView.getItems().add( pluginName );
+			webEngine.load( helpUrl.toExternalForm() );
+		}
+		else
+		{
+			LOG.warning( "Could not find documentation" );
 
-			panelsList.put( pluginName, pluginSettingsPanel );
+			String message = """
+   			<h1>ERROR: Could not find documentation</h1>
+			""";
 
-			if( panelsList.size() == 1 )
-			{
-				contentPane.getChildren().setAll( pluginSettingsPanel );
-			}
+			webEngine.loadContent( message, "text/html" );
 		}
 	}
 
-	@FXML public void listViewSelect( MouseEvent ev )
-	{
-		Node node = panelsList.get( listView.getSelectionModel().getSelectedItem() );
+	// ========================================================================
+	// = ChangeListener interface =============================================
+	// ========================================================================
 
-		contentPane.getChildren().setAll( node );
+	@Override
+	public void changed( ObservableValue observableValue, Object oldValue, Object newValue )
+	{
+		if( observableValue == stackPane.heightProperty() )
+		{
+			webView.setPrefHeight( (Double)newValue );
+			webView.autosize();
+		}
+
+		if( observableValue == stackPane.widthProperty() )
+		{
+			webView.setPrefWidth( (Double)newValue );
+			webView.autosize();
+		}
 	}
 
 	// ========================================================================
@@ -85,5 +99,5 @@ public class SettingsController
 	// ========================================================================
 
 	private static final Logger LOG
-		= Logger.getLogger( SettingsController.class.getName() );
+		= Logger.getLogger( HelpController.class.getName() );
 }

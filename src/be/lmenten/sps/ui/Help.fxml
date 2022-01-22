@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.web.WebView?>
+
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.lmenten.sps.ui.HelpController">
+   <center>
+      <StackPane fx:id="stackPane" BorderPane.alignment="CENTER">
+         <children>
+            <WebView fx:id="webView" maxHeight="-1.0" maxWidth="-1.0" minHeight="600.0" minWidth="800.0" prefHeight="-1.0" prefWidth="-1.0" />
+         </children>
+      </StackPane>
+   </center>
+</BorderPane>

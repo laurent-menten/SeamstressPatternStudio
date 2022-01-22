@@ -10,6 +10,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.input.KeyCodeCombination?>
@@ -21,7 +22,7 @@
 <?import org.controlsfx.control.PropertySheet?>
 <?import org.controlsfx.control.StatusBar?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.lmenten.sps.ui.MainStageController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.lmenten.sps.ui.MainStageController">
    <bottom>
       <StatusBar fx:id="statusBar" BorderPane.alignment="CENTER" />
    </bottom>
@@ -35,24 +36,42 @@
    <center>
       <BorderPane BorderPane.alignment="CENTER">
          <center>
-            <TabPane fx:id="sheetsPane">
-              <tabs>
-                <Tab text="Untitled Tab 1">
-                  <content>
-                    <AnchorPane>
-                           <children>
-                              <ScrollPane hbarPolicy="ALWAYS" layoutX="235.0" layoutY="286.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
-                <Tab text="Untitled Tab 2">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </Tab>
-              </tabs>
-            </TabPane>
+            <SplitPane dividerPositions="0.9" orientation="VERTICAL">
+               <items>
+                  <TabPane fx:id="sheetsPane" prefHeight="593.0" prefWidth="668.0">
+                    <tabs>
+                      <Tab text="Untitled Tab 1">
+                        <content>
+                          <AnchorPane>
+                                 <children>
+                                    <ScrollPane hbarPolicy="ALWAYS" layoutX="235.0" layoutY="286.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                      <Tab text="Untitled Tab 2">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </Tab>
+                    </tabs>
+                  </TabPane>
+                  <HBox>
+                     <children>
+                        <ToolBar orientation="VERTICAL">
+                          <items>
+                              <Button mnemonicParsing="false" onAction="#onScriptExecute" text="Execute" />
+                            <Button mnemonicParsing="false" onAction="#onScriptClear" text="Clear" />
+                              <Button mnemonicParsing="false" onAction="#onScriptPrevious" text="Previous" />
+                              <Button mnemonicParsing="false" onAction="#onScriptNext" text="Next" />
+                              <Button mnemonicParsing="false" onAction="#onScriptClearHistory" text="Clear history" />
+                          </items>
+                        </ToolBar>
+                        <TextArea fx:id="scriptInput" onKeyPressed="#onScriptKeyPressed" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+               </items>
+            </SplitPane>
          </center>
          <left>
             <SplitPane dividerPositions="0.66" orientation="VERTICAL" BorderPane.alignment="CENTER">
@@ -81,7 +100,7 @@
             </SplitPane>
          </left>
          <right>
-            <SplitPane>
+            <SplitPane orientation="VERTICAL">
                <items>
                   <PropertySheet fx:id="currentObjectProperties" />
                </items>
@@ -134,6 +153,7 @@
                    <Button fx:id="butCalculator" mnemonicParsing="false" onAction="#onCalculator" text="Calculator" />
                    <Pane HBox.hgrow="ALWAYS" />
                    <Button fx:id="butSettings" mnemonicParsing="false" onAction="#onSettings" text="Settings" />
+               <Button fx:id="butHelp" mnemonicParsing="false" onAction="#onHelp" text="Help" />
               </ToolBar>
          </children>
       </VBox>

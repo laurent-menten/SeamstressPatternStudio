@@ -17,70 +17,25 @@
 
 package be.lmenten.sps.plugins;
 
-import java.lang.Runtime.Version;
-
 /**
  *
  */
-public interface PluginProvider
+public abstract class AbstractPluginProvider
+	implements PluginProvider
 {
-	// ------------------------------------------------------------------------
-	// - Plugin information ---------------------------------------------------
-	// ------------------------------------------------------------------------
-
-	/**
-	 *
-	 * @return the plugin identifier
-	 */
-	String getPluginIdentifier();
-
-	/**
-	 *
-	 * @return the plugin name
-	 */
-	String getPluginName();
-
-	/**
-	 *
-	 * @return the plugin description
-	 */
-	String getPluginDescription();
-
-	/**
-	 *
-	 * @return the plugin version
-	 */
-	Version getPluginVersion();
-
-	/**
-	 *
-	 * @return the plugin type
-	 */
-	PluginType getPluginType();
+	private boolean pluginEnabled;
 
 	// ------------------------------------------------------------------------
-	// - Plugin status --------------------------------------------------------
-	// ------------------------------------------------------------------------
 
-	/**
-	 *
-	 * @return true if plugin is enabled
-	 */
-	boolean isPluginEnabled();
+	@Override
+	public boolean isPluginEnabled()
+	{
+		return pluginEnabled;
+	}
 
-	/**
-	 *
-	 * @param pluginEnabled true if plugin is enabled
-	 */
-	void setPluginEnabled( boolean pluginEnabled );
-
-	// ------------------------------------------------------------------------
-	// - Plugin instance ------------------------------------------------------
-	// ------------------------------------------------------------------------
-
-	/**
-	 *
-	 * @return the plugin instance
-	 */
-	Plugin getPluginInstance();
+	@Override
+	public void setPluginEnabled( boolean pluginEnabled )
+	{
+		this.pluginEnabled = pluginEnabled;
+	}
 }

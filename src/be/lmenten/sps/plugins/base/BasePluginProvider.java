@@ -17,53 +17,58 @@
 
 package be.lmenten.sps.plugins.base;
 
+import be.lmenten.sps.plugins.AbstractPluginProvider;
 import be.lmenten.sps.plugins.Plugin;
-import be.lmenten.sps.plugins.PluginProvider;
 import be.lmenten.sps.plugins.PluginType;
+import org.jetbrains.annotations.PropertyKey;
 
 import java.lang.Runtime.Version;
 
 public class BasePluginProvider
-	implements PluginProvider
+	extends AbstractPluginProvider
 {
-	/*package*/ static final String PLUGIN_IDENTIFIER = "plugin-base";
-	/*package*/ static final String PLUGIN_NAME = "Base plugin";
-	/*package*/ static final Version PLUGIN_VERSION = Version.parse(  "1.0.1" );
+	// ========================================================================
+	// = PluginProvider interface =============================================
+	// ========================================================================
+
+	@Override
+	public String getPluginIdentifier()
+	{
+		return BasePlugin.PLUGIN_IDENTIFIER;
+	}
+
+	@Override
+	public String getPluginName()
+	{
+		return BasePlugin.PLUGIN_NAME;
+	}
+
+	@Override
+	public String getPluginDescription()
+	{
+		return $( "plugin.identifier" );
+	}
+
+	@Override
+	public Version getPluginVersion()
+	{
+		return BasePlugin.PLUGIN_VERSION;
+	}
+
+	@Override
+	public PluginType getPluginType()
+	{
+		return BasePlugin.PLUGIN_TYPE;
+	}
+
+	// ------------------------------------------------------------------------
+	// - Plugin instance ------------------------------------------------------
+	// ------------------------------------------------------------------------
 
 	private BasePlugin instance = null;
 
 	@Override
-	public String getIdentifier()
-	{
-		return PLUGIN_IDENTIFIER;
-	}
-
-	@Override
-	public String getName()
-	{
-		return PLUGIN_NAME;
-	}
-
-	@Override
-	public String getDescription()
-	{
-		return null;
-	}
-
-	@Override
-	public Version getVersion()
-	{
-		return PLUGIN_VERSION;
-	}
-
-	@Override
-	public PluginType getType()
-	{
-		return PluginType.DUMMY;
-	}
-
-	@Override
-	public Plugin getPluginInstance()
+	public synchronized Plugin getPluginInstance()
 	{
 		if( instance == null )
 		{
@@ -71,5 +76,14 @@ public class BasePluginProvider
 		}
 
 		return instance;
+	}
+
+	// ========================================================================
+	// = Utilities ============================================================
+	// ========================================================================
+
+	private String $( @PropertyKey( resourceBundle=BasePlugin.PLUGIN_RESOURCE_FQN ) String key )
+	{
+		return BasePlugin.RES.getString( key );
 	}
 }

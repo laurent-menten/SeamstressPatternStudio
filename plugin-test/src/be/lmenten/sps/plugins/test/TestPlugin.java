@@ -91,12 +91,6 @@ public class TestPlugin
 	// ------------------------------------------------------------------------
 
 	@Override
-	public Settings getPluginSettings()
-	{
-		return settings;
-	}
-
-	@Override
 	public Node getSettingsPanel()
 	{
 		return propertySheet;
@@ -111,14 +105,14 @@ public class TestPlugin
 
 	@SuppressWarnings( "unused" )
 	private static final Logger LOG
-		= Logger.getLogger( BasePlugin.class.getName() );
+		= Logger.getLogger( TestPlugin.class.getName() );
 
 	@SuppressWarnings( "unused" )
 	private static final Preferences PREFS
-		= Preferences.userNodeForPackage( BasePlugin.class );
+		= Preferences.userNodeForPackage( TestPlugin.class );
 
 	/*package*/ static final ResourceBundle RES
-		= ResourceBundle.getBundle( BasePlugin.class.getName() );
+		= ResourceBundle.getBundle( TestPlugin.class.getName() );
 
 	private String $( @PropertyKey( resourceBundle="be.lmenten.sps.plugins.test.TestPlugin" ) String key )
 	{

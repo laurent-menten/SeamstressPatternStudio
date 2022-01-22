@@ -3,6 +3,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="lib-controlfx" options="--add-exports javafx.base/com.sun.javafx.event=org.controlsfx.controls --add-exports javafx.controls/com.sun.javafx.scene.control.behavior=org.controlsfx.controls --add-exports javafx.controls/com.sun.javafx.scene.control=org.controlsfx.controls" />
+      <module name="lib-reactfx" options="--add-exports javafx.base/com.sun.javafx.binding=lib.reactfx" />
     </option>
   </component>
 </project>

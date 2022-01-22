@@ -7,7 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/../LMenten-Libraries/lib-lmenten/lib-lmenten.iml" filepath="$PROJECT_DIR$/../LMenten-Libraries/lib-lmenten/lib-lmenten.iml" />
       <module fileurl="file://$PROJECT_DIR$/../LMenten-Libraries/lib-lmenten-fx/lib-lmenten-fx.iml" filepath="$PROJECT_DIR$/../LMenten-Libraries/lib-lmenten-fx/lib-lmenten-fx.iml" />
       <module fileurl="file://$PROJECT_DIR$/../LMenten-Libraries/lib-lmenten-mxparser/lib-lmenten-mxparser.iml" filepath="$PROJECT_DIR$/../LMenten-Libraries/lib-lmenten-mxparser/lib-lmenten-mxparser.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../Libraries/mXparser/mXparser.iml" filepath="$PROJECT_DIR$/../Libraries/mXparser/mXparser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Libraries/lib-mXparser/lib-mXparser.iml" filepath="$PROJECT_DIR$/../Libraries/lib-mXparser/lib-mXparser.iml" />
       <module fileurl="file://$PROJECT_DIR$/plugin-test/plugin-test.iml" filepath="$PROJECT_DIR$/plugin-test/plugin-test.iml" />
     </modules>
   </component>

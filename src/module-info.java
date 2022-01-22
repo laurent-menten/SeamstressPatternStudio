@@ -22,21 +22,23 @@ module SeamstressPatternStudio
 {
 	requires lib.lmenten;
 	requires lib.lmenten.fx;
+	requires lib.lmenten.mxparser;
 
-	requires mXparser;
+	requires lib.mXparser;
 
 	requires java.desktop;
 	requires java.logging;
 	requires java.management;
 	requires java.prefs;
+	requires java.scripting;
 
 	requires javafx.controls;
 	requires javafx.fxml;
 	requires javafx.graphics;
+	requires javafx.web;
 
 	requires org.controlsfx.controls;
 	requires org.jetbrains.annotations;
-	requires lib.lmenten.mxparser;
 
 	exports be.lmenten.sps;
 	exports be.lmenten.sps.plugins;

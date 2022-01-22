@@ -28,25 +28,32 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.mariuszgromada.math.mxparser.Argument;
-import org.mariuszgromada.math.mxparser.Constant;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.lang.Runtime.Version;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.ServiceLoader;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineFactory;
+import javax.script.ScriptEngineManager;
 
 /**
  *
  */
 public class SeamstressPatternStudio
-	extends FxApplication
+	extends FxApplication<SeamstressPatternStudio>
 {
+	public final String WORKING_DIR;
+
 	// ------------------------------------------------------------------------
 	// - WARNING: These value are updated by build script ---------------------
 	// ------------------------------------------------------------------------
@@ -72,6 +79,8 @@ public class SeamstressPatternStudio
 	private final ServiceLoader<PluginProvider> serviceLoader;
 
 	private MainStageController controller;
+
+	private ScriptEngine scriptEngine;
 
 	// ========================================================================
 	// = Constructor ==========================================================
@@ -111,7 +120,10 @@ public class SeamstressPatternStudio
 	}
 
 	public SeamstressPatternStudio()
+		throws IOException
 	{
+		WORKING_DIR = new File( "." ).getCanonicalPath();
+
 		// --------------------------------------------------------------------
 		// - Graphic resources ------------------------------------------------
 		// --------------------------------------------------------------------
@@ -127,8 +139,8 @@ public class SeamstressPatternStudio
 
 		for( PluginProvider provider : getServiceLoader() )
 		{
-			LOG.info( "Found plugin: " + provider.getName()
-				+ " (id: '" +provider.getIdentifier() + "', version: " + provider.getVersion() + ")" );
+			LOG.info( "Found plugin: " + provider.getPluginName()
+				+ " (id: '" +provider.getPluginIdentifier() + "', version: " + provider.getPluginVersion() + ")" );
 		}
 	}
 
@@ -144,6 +156,31 @@ public class SeamstressPatternStudio
 	public MainStageController getMainStageController()
 	{
 		return controller;
+	}
+
+	private static final String SCRIPTING_LANGUAGE = "JavaScript";
+
+	public synchronized ScriptEngine getScriptEngine()
+	{
+		if( scriptEngine == null )
+		{
+			ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
+			List<ScriptEngineFactory> factories = scriptEngineManager.getEngineFactories();
+			if( factories.size() == 0 )
+			{
+				LOG.severe( "No scripting language supported !" );
+			}
+			else
+			{
+				scriptEngine = scriptEngineManager.getEngineByName( SCRIPTING_LANGUAGE );
+				if( scriptEngine == null )
+				{
+					LOG.severe( "Scripting language '" + SCRIPTING_LANGUAGE + "' not supported!" );
+				}
+			}
+		}
+
+		return scriptEngine;
 	}
 
 	// ========================================================================

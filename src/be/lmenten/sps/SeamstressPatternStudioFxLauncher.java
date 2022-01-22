@@ -205,16 +205,17 @@ public class SeamstressPatternStudioFxLauncher
 		String moduleList = ""
 			+	      "lib.lmenten"
 			+	"," + "lib.lmenten.fx"
-			+	"," + "org.jetbrains.annotations"
 
-			+	"," + "mXparser"
 			+	"," + "org.controlsfx.controls"
+			+	"," + "lib.mXparser"
 
 			+	"," + "javafx.base"
 			+	"," + "javafx.graphics"
 			+	"," + "javafx.controls"
 			+	"," + "javafx.web"
 			+	"," + "javafx.fxml"
+
+			+	"," + "org.jetbrains.annotations"
 			;
 
 		javaArgs.add( "--add-modules" );
