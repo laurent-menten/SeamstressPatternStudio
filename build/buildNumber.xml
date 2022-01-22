@@ -3,7 +3,7 @@
 
 	<buildnumber/>
 
-	<property name="dir.src" value="../src"/>
+	<property name="dir.src" value="../src-java"/>
 	<property name="main.file" value="/be/lmenten/sps/SeamstressPatternStudio.java"/>
 
 	<property file="appinfo.properties" />
