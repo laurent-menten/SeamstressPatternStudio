@@ -19,6 +19,7 @@ package be.lmenten.sps.ui;
 
 import be.lmenten.sps.SeamstressPatternStudio;
 import be.lmenten.sps.tools.ToolCategory;
+import be.lmenten.utils.mxparser.Expression;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,15 +39,10 @@ import org.controlsfx.glyphfont.FontAwesome;
 import org.controlsfx.glyphfont.GlyphFont;
 import org.controlsfx.glyphfont.GlyphFontRegistry;
 import org.controlsfx.property.BeanPropertyUtils;
-import org.jetbrains.annotations.NotNull;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptException;
 import java.io.IOException;
-import java.io.Writer;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -64,9 +60,9 @@ public class MainStageController
 	@FXML private MenuBar menuBar;
 
 	@FXML private ToolBar appToolBar;
-	@FXML private Button 	butCalculator;
-	@FXML private Button 	butSettings;
-	@FXML private Button 	butHelp;
+	@FXML private Button butCalculator;
+	@FXML private Button butSettings;
+	@FXML private Button butHelp;
 
 	@FXML private ToolBar patternToolBar;
 
@@ -99,6 +95,8 @@ public class MainStageController
 
 		butCalculator.setGraphic( fontAwesome.create( FontAwesome.Glyph.CALCULATOR ) );
 		butSettings.setGraphic( fontAwesome.create( FontAwesome.Glyph.COG ) );
+
+		scriptInput.setText( "> " );
 	}
 
 	// ------------------------------------------------------------------------
@@ -182,6 +180,8 @@ public class MainStageController
 		application.getSettings().saveToPreferences();
 	}
 
+	private Stage helpStage = null;
+
 	@FXML void onHelp( ActionEvent ev )
 		throws IOException
 	{
@@ -189,131 +189,130 @@ public class MainStageController
 		// - Create settings modal window -------------------------------------
 		// --------------------------------------------------------------------
 
-		URL fxml = SeamstressPatternStudio.class.getResource( "ui/Help.fxml" );
-		FXMLLoader loader = new FXMLLoader( fxml, SeamstressPatternStudio.RES );
-		Pane root = loader.load();
+		if( helpStage == null )
+		{
+			URL fxml = SeamstressPatternStudio.class.getResource( "ui/Help.fxml" );
+			FXMLLoader loader = new FXMLLoader( fxml, SeamstressPatternStudio.RES );
+			Pane root = loader.load();
 
-		Scene scene = new Scene( root );
-		scene.getStylesheets().add( SeamstressPatternStudio.APP_CSS_URL );
+			Scene scene = new Scene( root );
+			scene.getStylesheets().add( SeamstressPatternStudio.APP_CSS_URL );
 
-		Stage stage = new Stage();
-		stage.setTitle( "Help" );
-		stage.getIcons().add( application.getAppIcon() );
-		stage.setScene( scene );
+			helpStage = new Stage();
+			helpStage.setTitle( "Help" );
+			helpStage.getIcons().add( application.getAppIcon() );
+			helpStage.setScene( scene );
 
-		stage.initModality( Modality.NONE );
-		stage.initOwner( ((Node)ev.getSource()).getScene().getWindow() );
+			helpStage.initModality( Modality.NONE );
+			helpStage.initOwner( ((Node) ev.getSource()).getScene().getWindow() );
+		}
 
-		stage.show();
+		if( ! helpStage.isShowing() )
+		{
+			helpStage.show();
+		}
 	}
 
 	// ========================================================================
 	// = Scripting engine =====================================================
 	// ========================================================================
 
-	private Writer outWriter = new Writer()
-	{
-		@Override
-		public void write( @NotNull char[] cbuf, int off, int len ) throws IOException
-		{
-			scriptInput.appendText( "Out: " + new String( cbuf ) + "\n" );
-		}
-
-		@Override
-		public void flush() throws IOException
-		{
-
-		}
-
-		@Override
-		public void close() throws IOException
-		{
-
-		}
-	};
-
-	private Writer errWriter = new Writer()
-	{
-		@Override
-		public void write( @NotNull char[] cbuf, int off, int len ) throws IOException
-		{
-			scriptInput.appendText( "Err: " + new String( cbuf ) + "\n" );
-		}
-
-		@Override
-		public void flush() throws IOException
-		{
-
-		}
-
-		@Override
-		public void close() throws IOException
-		{
-
-		}
-	};
-
 	// ------------------------------------------------------------------------
 
 	@FXML void onScriptKeyPressed( KeyEvent ev )
 	{
-		if( ev.getCode().equals( KeyCode.ENTER ) && ev.isControlDown() )
+		if( ev.getCode().equals( KeyCode.ENTER ) /*&& ev.isControlDown()*/ )
 		{
-			onScriptExecute( null );
-		}
-	}
+			ev.consume();
 
-	@FXML void onScriptExecute( ActionEvent ev )
-	{
-		LOG.info( "Execute script" );
+			String text = scriptInput.getText();
+			String [] lines = text.split( "\\r?\\n" );
 
-		scriptInput.appendText( "\n" );
-
-		ScriptEngine engine = application.getScriptEngine();
-		if( engine != null )
-		{
-			try
+			String line = lines[lines.length - 1].trim();
+			if( line.length() > 0 )
 			{
-				engine.getContext().setWriter( outWriter );
-				engine.getContext().setErrorWriter( errWriter );
-				engine.eval( scriptInput.getText() );
-			}
-			catch( ScriptException ex )
-			{
-				LOG.log( Level.SEVERE, "Script error", ex );
+				String [] args = line.split( "[\\s\\u0085\\p{Z}]+" );
+				if( args.length > 0 && args[0].equals( ">" ) )
+				{
+					if( args.length > 1 )
+					{
+						if( args[1].equalsIgnoreCase( "help" ) )
+						{
+							butHelp.fire();
+						}
+						else if( args[1].equalsIgnoreCase( "nop" ) )
+						{
+							scriptInput.appendText( "No operation!\n" );
+						}
+						else // no known command, try an expression
+						{
+							Expression expression = application.getExpressionEvaluator();
 
-				Alert alert = new Alert( Alert.AlertType.CONFIRMATION );
-				alert.initOwner( root.getScene().getWindow() );
-				alert.initModality( Modality.APPLICATION_MODAL );
+							expression.setExpressionString( line.substring( 1 ) );
+							if( expression.checkSyntax() )
+							{
+								double ans = expression.calculate();
 
-				alert.setTitle( application.getAppTitle() );
+								expression.getConstant( "ans" ).setConstantValue( ans );
 
-				alert.setHeaderText( "Scripting error" );
-				alert.setContentText( ex.getMessage() );
+								scriptInput.appendText( "ans=" + ans + "\n\n" );
+							}
+							else
+							{
+								Alert alert = new Alert( Alert.AlertType.CONFIRMATION );
+								alert.initOwner( root.getScene().getWindow() );
+								alert.initModality( Modality.APPLICATION_MODAL );
 
-				ButtonType okButton = new ButtonType( "OK", ButtonBar.ButtonData.YES );
-				alert.getButtonTypes().setAll( okButton );
+								alert.setTitle( application.getAppTitle() );
 
-				alert.showAndWait();
+								alert.setHeaderText( "Syntax error" );
+
+								StringBuilder s = new StringBuilder();
+								s.append( "in expression '" )
+									.append(  line.substring( 1 ).trim() )
+									.append( "'" )
+									.append( "\n\n" );
+
+								String [] xx = expression.getMissingUserDefinedFunctions();
+								if( xx.length != 0 )
+								{
+									s.append( "Unknown functions: " )
+										.append( String.join( ", ", xx ) )
+										.append( "\n\n" );
+								}
+
+								xx = expression.getMissingUserDefinedArguments();
+								if( xx.length != 0 )
+								{
+									s.append( "Unknown arguments: " )
+											.append( String.join( ", ", xx ) )
+											.append( "\n\n" );
+								}
+
+								xx = expression.getMissingUserDefinedUnits();
+								if( xx.length != 0 )
+								{
+									s.append( "Unknown units: " )
+										.append( String.join( ", ", xx ) )
+										.append( "\n\n" );
+								}
+
+								s.append( "Use 'help' command or press help button for more information." );
+
+								alert.setContentText( s.toString() );
+
+								ButtonType okButton = new ButtonType( "OK", ButtonBar.ButtonData.YES );
+								alert.getButtonTypes().setAll( okButton );
+
+								alert.showAndWait();
+							}
+						}
+					}
+
+					scriptInput.appendText( "> " );
+				}
 			}
 		}
-	}
-
-	@FXML void onScriptClear( ActionEvent ev )
-	{
-		scriptInput.clear();
-	}
-
-	@FXML void onScriptPrevious( ActionEvent ev )
-	{
-	}
-
-	@FXML void onScriptNext( ActionEvent ev )
-	{
-	}
-
-	@FXML void onScriptClearHistory( ActionEvent ev )
-	{
 	}
 
 	// ========================================================================

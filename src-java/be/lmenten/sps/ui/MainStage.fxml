@@ -58,15 +58,6 @@
                   </TabPane>
                   <HBox>
                      <children>
-                        <ToolBar orientation="VERTICAL">
-                          <items>
-                              <Button mnemonicParsing="false" onAction="#onScriptExecute" text="Execute" />
-                            <Button mnemonicParsing="false" onAction="#onScriptClear" text="Clear" />
-                              <Button mnemonicParsing="false" onAction="#onScriptPrevious" text="Previous" />
-                              <Button mnemonicParsing="false" onAction="#onScriptNext" text="Next" />
-                              <Button mnemonicParsing="false" onAction="#onScriptClearHistory" text="Clear history" />
-                          </items>
-                        </ToolBar>
                         <TextArea fx:id="scriptInput" onKeyPressed="#onScriptKeyPressed" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>

@@ -19,11 +19,23 @@
         <div class="navbar">
             <a href="home.html" target="content">Home</a>
             <a href="news.html" target="content">News</a>
+
             <div class="dropdown">
-                <button class="dropbtn" onclick="myFunction()">Dropdown
+                <button class="dropdown-button" onclick='showDropdown( "menu-math" )'>Math expressions
                     <i class="fa fa-caret-down"></i>
                 </button>
-                <div class="dropdown-content" id="myDropdown">
+                <div class="dropdown-content" id="menu-math">
+                    <a href="math.html#syntax" target="content">Syntax</a>
+                    <a href="math.html#variables" target="content">Variables</a>
+                    <a href="math.html#functions" target="content">Functions</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropdown-button" onclick='showDropdown( "menu-misc" )'>Dropdown
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content" id="menu-misc">
                     <a href="#">Link 1</a>
                     <a href="#">Link 2</a>
                     <a href="#">Link 3</a>
